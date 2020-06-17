@@ -2,7 +2,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
 	(global = global || self, factory(global.RTCStatsWrapper = {}));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -1310,20 +1310,22 @@
 	      const ref = this._getRTCStatsReference(originalStats);
 	      const stats = {};
 
-	      // get the preferred value from original stats.
-	      for (const attr of RTCStatsReferenceMap.get(ref)) {
-	        if (originalStats[attr] !== undefined) {
-	          stats[attr] = originalStats[attr];
+	      if (ref) {
+	        // get the preferred value from original stats.
+	        for (const attr of RTCStatsReferenceMap.get(ref)) {
+	          if (originalStats[attr] !== undefined) {
+	            stats[attr] = originalStats[attr];
+	          }
 	        }
-	      }
 
-	      // update the stats object
-	      if (report.has(ref)) {
-	        const statsArray = report.get(ref);
-	        statsArray.push(stats);
-	        report.set(ref, statsArray);
-	      } else {
-	        report.set(ref, [stats]);
+	        // update the stats object
+	        if (report.has(ref)) {
+	          const statsArray = report.get(ref);
+	          statsArray.push(stats);
+	          report.set(ref, statsArray);
+	        } else {
+	          report.set(ref, [stats]);
+	        }
 	      }
 	    }
 
@@ -1439,6 +1441,9 @@
 	        return RTCStatsReferences.RTCCertificates.key;
 	      case "stunserverconnection":
 	        return RTCStatsReferences.RTCStunServerConnections.key;
+	      case "track":
+	        // Simulcast Probator　Case. Ignore
+	        return null;
 	      default:
 	        throw new Error(
 	          `Received an unknown stats-type string: ${stats.type}.`
@@ -2329,7 +2334,7 @@
 	  this.domain = null;
 	  if (EventEmitter.usingDomains) {
 	    // if there is an active domain, then attach to it.
-	    if (domain.active && !(this instanceof domain.Domain)) ;
+	    if (domain.active ) ;
 	  }
 
 	  if (!this._events || this._events === Object.getPrototypeOf(this)._events) {
@@ -3160,4 +3165,4 @@
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));

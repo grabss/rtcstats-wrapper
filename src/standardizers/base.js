@@ -38,20 +38,22 @@ export class BaseRTCStatsReport {
       const ref = this._getRTCStatsReference(originalStats);
       const stats = {};
 
-      // get the preferred value from original stats.
-      for (const attr of RTCStatsReferenceMap.get(ref)) {
-        if (originalStats[attr] !== undefined) {
-          stats[attr] = originalStats[attr];
+      if (ref) {
+        // get the preferred value from original stats.
+        for (const attr of RTCStatsReferenceMap.get(ref)) {
+          if (originalStats[attr] !== undefined) {
+            stats[attr] = originalStats[attr];
+          }
         }
-      }
 
-      // update the stats object
-      if (report.has(ref)) {
-        const statsArray = report.get(ref);
-        statsArray.push(stats);
-        report.set(ref, statsArray);
-      } else {
-        report.set(ref, [stats]);
+        // update the stats object
+        if (report.has(ref)) {
+          const statsArray = report.get(ref);
+          statsArray.push(stats);
+          report.set(ref, statsArray);
+        } else {
+          report.set(ref, [stats]);
+        }
       }
     }
 
@@ -167,6 +169,9 @@ export class BaseRTCStatsReport {
         return RTCStatsReferences.RTCCertificates.key;
       case "stunserverconnection":
         return RTCStatsReferences.RTCStunServerConnections.key;
+      case "track":
+        // Simulcast Probator　Case. Ignore
+        return null;
       default:
         throw new Error(
           `Received an unknown stats-type string: ${stats.type}.`

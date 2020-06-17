@@ -1,20 +1,20 @@
 {
   "name": "rtcstats-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A wrapper of RTCStats for standardization and calculation of momentary values.",
-  "author": "NTT Communications Corp.",
+  "author": "grabss",
   "license": "MIT",
-  "homepage": "https://github.com/skyway-lab/rtcstats-wrapper#readme",
+  "homepage": "https://github.com/grabss/rtcstats-wrapper#readme",
   "keywords": [
     "WebRTC",
     "RTCStats"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/skyway-lab/rtcstats-wrapper.git"
+    "url": "https://github.com/grabss/rtcstats-wrapper.git"
   },
   "bugs": {
-    "url": "https://github.com/skyway-lab/rtcstats-wrapper/issues"
+    "url": "https://github.com/grabss/rtcstats-wrapper/issues"
   },
   "main": "./dist/rtcstats-wrapper.js",
   "scripts": {
